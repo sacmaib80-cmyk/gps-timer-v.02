@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>SakuraQ v0.7.5</title>
+    <title>SakuraQ v0.7.6</title>
 
     <style>
       :root{
@@ -2111,6 +2111,7 @@ linear-gradient(
   text-overflow:ellipsis;
 }
 
+
 .homeUserSub{
   margin-top:3px;
   font-size:10px;
@@ -2170,13 +2171,17 @@ linear-gradient(
     flex:0 0 38px;
   }
 
-  .homeUserName{
-    font-size:12px;
-  }
+ .homeUserName{
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
 
-  .homeUserSub{
-    font-size:9px;
-  }
+.homeUserName:active{
+  transform: scale(.98);
+  opacity: .85;
+}
 }
 /* desktop ขยายแบบไม่ลอยมั่ว */
 @media (min-width: 900px){
@@ -2327,8 +2332,11 @@ linear-gradient(
           </div>
 
           <div class="homeUserMeta">
-            <div class="homeUserName">MaAMha</div>
-            <div class="homeUserSub">Level 7 • SakuraQ User</div>
+            <div class="homeUserName" id="homeUserName">
+  <span class="homeUserNameText">MaAMha</span>
+  <span class="homeEditHint">✎</span>
+</div>
+<div class="homeUserSub" id="homeUserSub">Level 1 • SakuraQ User</div>
           </div>
         </div>
 
@@ -2416,7 +2424,7 @@ linear-gradient(
           <div class="brandMeta">
             <div class="brandTitleRow">
               <h1>SakuraQ</h1>
-              <span class="versionBadge">v0.7.5</span>
+              <span class="versionBadge">v0.7.6</span>
             </div>
             <div class="sub" id="todayText">Today: ----</div>
           </div>
@@ -2646,7 +2654,7 @@ linear-gradient(
             <div class="row two" style="margin-top:12px;">
               <div>
                 <label for="reportMinutes">Minutes Spent</label>
-                <input id="reportMinutes" type="number" min="0" step="1" />
+                <input id="reportMinutes" type="number" readonly inputmode="none">
                 <div class="hint" id="bonusRuleHint"></div>
                 <div class="hint" id="capHint"></div>
               </div>
@@ -2851,6 +2859,7 @@ linear-gradient(
   const KEY_STREAK  = "qps_streak_v2";
   const KEY_UNDO    = "qps_undo_v2";
   const KEY_ONBOARD = "qps_onboard_seen_v2";
+  const KEY_PROFILE = "qps_profile_v1";
 
   /* Morning Gate */
   const KEY_GATE      = "qps_morning_gate_v3";
@@ -3040,6 +3049,36 @@ linear-gradient(
   function isFirstQuestAlreadyDoneToday(){
     return isDayDone(localDateKey());
   }
+ function loadProfile(){
+  try{
+    return JSON.parse(localStorage.getItem(KEY_PROFILE)) || { name: "MaAMha" };
+  }catch{
+    return { name: "MaAMha" };
+  }
+}
+
+function saveProfile(profile){
+  localStorage.setItem(KEY_PROFILE, JSON.stringify(profile));
+}
+
+function calcLifetimeQps(){
+  const data = loadAll();
+  let total = 0;
+
+  Object.values(data).forEach(day=>{
+    if(typeof day?.totalQps === "number"){
+      total += day.totalQps;
+    }else if(Array.isArray(day?.quests)){
+      total += day.quests.reduce((s,q)=> s + (Number(q.questScore) || 0), 0);
+    }
+  });
+
+  return round1(total);
+}
+
+function calcLevelFromLifetimeQps(totalQps){
+  return Math.floor(totalQps / 100) + 1;
+}
 
   /* =========================
     STREAK
@@ -3140,6 +3179,8 @@ function renderStreak(){
 
     homeLevelFill: $("homeLevelFill"),
 homeLevelValue: $("homeLevelValue"),
+homeUserName: $("homeUserName"),
+homeUserSub: $("homeUserSub"),
  
     appScroll: $("appScroll"),
 
@@ -4911,7 +4952,7 @@ function rqStartNow(){
   function submitReport(){
     clearSubmitMessages();
 
-    const minutes = Number(el.reportMinutes?.value);
+    const minutes = Math.max(0, Math.round((state.lastElapsedMs || 0) / 60000));
     if(!Number.isFinite(minutes) || minutes <= 0){
   if(el.submitWarn){
     el.submitWarn.style.display="block";
@@ -5262,11 +5303,10 @@ function hideTooltip(){
 ========================= */
 
 function saveReportDraft(){
-  const draft = {
-    minutes: el.reportMinutes?.value || "",
-    bonus: el.qualityBonus?.value || "0",
-    notes: el.notes?.value || ""
-  };
+ const draft = {
+  bonus: el.qualityBonus?.value || "0",
+  notes: el.notes?.value || ""
+};
 
   localStorage.setItem(REPORT_DRAFT_KEY, JSON.stringify(draft));
 
@@ -5282,7 +5322,8 @@ function loadReportDraft(){
   try{
     const d = JSON.parse(raw);
 
-    if(el.reportMinutes) el.reportMinutes.value = d.minutes || "";
+    const lockedMinutes = Math.max(0, Math.round((state.lastElapsedMs || 0) / 60000));
+if(el.reportMinutes) el.reportMinutes.value = lockedMinutes ? String(lockedMinutes) : "";
     if(el.qualityBonus) el.qualityBonus.value = d.bonus || "0";
     if(el.notes) el.notes.value = d.notes || "";
 
@@ -5340,13 +5381,22 @@ function clearReportDraft(){
   // timer buttons
   on(el.startBtn, "click", startQuest);
   on(el.pauseBtn, "click", pauseQuest);
+  on(el.homeUserName, "click", editProfileName);
+  on(el.homeUserSub, "click", editProfileName);
   on(el.resumeBtn, "click", resumeQuest);
   on(el.stopBtn, "click", stopQuest);
  
   // report
   on(el.reportMinutes, "input", ()=>{
-    const minutes = Number(el.reportMinutes?.value);
-    if(Number.isFinite(minutes)) applyBonusRule(minutes);
+    const minutes = Math.max(0, Math.round((state.lastElapsedMs || 0) / 60000));
+if(!Number.isFinite(minutes) || minutes <= 0){
+  if(el.submitWarn){
+    el.submitWarn.style.display="block";
+    el.submitWarn.textContent="Minutes ต้อง > 0";
+  }
+  if(el.draftHint) el.draftHint.style.display="none";
+  return;
+}
   });
   on(el.submitReportBtn, "click", submitReport);
   on(el.discardBtn, "click", discardReport);
@@ -5588,13 +5638,25 @@ document.addEventListener("visibilitychange", ()=>{
 
 
 /* ========= RENDER ========= */
-  function renderHomeHud(){
+function renderHomeHud(){
   const todayKey = localDateKey();
-  const total = calcDayTotal(todayKey);
-  const percent = Math.max(0, Math.min(100, total));
+  const todayTotal = calcDayTotal(todayKey);
+  const percent = Math.max(0, Math.min(100, todayTotal));
+
+  const profile = loadProfile();
+  const lifetimeQps = calcLifetimeQps();
+  const level = calcLevelFromLifetimeQps(lifetimeQps);
+
+  if(el.homeUserName){
+    el.homeUserName.textContent = profile.name || "MaAMha";
+  }
+
+  if(el.homeUserSub){
+    el.homeUserSub.textContent = `Level ${level} • SakuraQ User`;
+  }
 
   if(el.homeLevelValue){
-    el.homeLevelValue.textContent = `${total.toFixed(1)} / 100`;
+    el.homeLevelValue.textContent = `${todayTotal.toFixed(1)} / 100`;
   }
 
   if(el.homeLevelFill){
@@ -5602,6 +5664,19 @@ document.addEventListener("visibilitychange", ()=>{
   }
 }
 
+function editProfileName(){
+  const profile = loadProfile();
+  const next = prompt("ตั้งชื่อโปรไฟล์", profile.name || "MaAMha");
+
+  if(next === null) return;
+
+  const clean = next.trim();
+  if(!clean) return;
+
+  profile.name = clean;
+  saveProfile(profile);
+  renderHomeHud();
+}
 function updateDiceVisibility(){
   if(!el.diceFab) return;
   el.diceFab.style.display = "flex";
