@@ -2601,162 +2601,143 @@ linear-gradient(
 </style>
 </head>
 <body>
-<section id="homeScene" class="page page-active" aria-label="SakuraQ Home Scene">
-  <div class="roomCard">
-    <div class="roomScene">
-      <div class="roomBack"></div>
-      <div class="roomFloor"></div>
 
-      <img src="desk.png" alt="" class="roomAsset deskAsset">
-      <img src="shelf.png" alt="" class="roomAsset shelfAsset">
-      <img src="phone.png" alt="" class="roomAsset phoneAsset">
-      <img src="dumbbell.png" alt="" class="roomAsset dumbbellAsset">
-      <img src="mascot.png" alt="SakuraQ mascot" class="roomAsset mascotAsset">
+  <!-- HOME -->
+  <section id="homeScene" class="page page-active" aria-label="SakuraQ Home Scene">
+    <div class="roomCard">
+      <div class="roomScene">
+        <div class="roomBack"></div>
+        <div class="roomFloor"></div>
 
-      <div class="homeHud">
-        <div class="homeHudTop">
-          <div class="homeAvatar">
-            <img src="logo.png" alt="User avatar">
+        <img src="desk.png" alt="" class="roomAsset deskAsset">
+        <img src="shelf.png" alt="" class="roomAsset shelfAsset">
+        <img src="phone.png" alt="" class="roomAsset phoneAsset">
+        <img src="dumbbell.png" alt="" class="roomAsset dumbbellAsset">
+        <img src="mascot.png" alt="SakuraQ mascot" class="roomAsset mascotAsset">
+
+        <div class="homeHud">
+          <div class="homeHudTop">
+            <div class="homeAvatar">
+              <img src="logo.png" alt="User avatar">
+            </div>
+
+            <div class="homeUserMeta">
+              <div class="homeUserName" id="homeUserName">
+                <span class="homeUserNameText">MaAMha</span>
+                <span class="homeEditHint">✎</span>
+              </div>
+              <div class="homeUserSub" id="homeUserSub">Level 1 • SakuraQ User</div>
+            </div>
           </div>
 
-          <div class="homeUserMeta">
-            <div class="homeUserName" id="homeUserName">
-  <span class="homeUserNameText">MaAMha</span>
-  <span class="homeEditHint">✎</span>
-</div>
-<div class="homeUserSub" id="homeUserSub">Level 1 • SakuraQ User</div>
+          <div class="homeLevelRow">
+            <div class="homeLevelLabel">Daily Progress</div>
+            <div class="homeLevelValue" id="homeLevelValue">0 / 100</div>
+          </div>
+
+          <div class="homeLevelBar">
+            <div class="homeLevelFill" id="homeLevelFill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORNING GATE COVER -->
+  <div class="gateCover" id="gateCover" aria-hidden="true">
+    <div class="gatePanel" role="dialog" aria-modal="true">
+      <div class="gatePanelHead">
+        <div>
+          <p class="gateTitle">🟥 Morning Gate</p>
+          <p class="gateKicker" id="gateCoverKicker">
+            โหมดนี้จะเริ่มทำงานตามเวลา “Trigger Time” ของวันนี้<br>
+            เป้าคือเริ่มเควสแรกให้ทัน แล้ววิ่งครบ 3 นาทีเพื่อ PASS
+          </p>
+        </div>
+        <div class="gateChip" id="gateCoverStatusChip">STATUS: READY</div>
+      </div>
+
+      <div class="gatePanelBody">
+        <div class="gateInlineEdit">
+          <div class="gateChip" style="background: rgba(255,255,255,.10);">
+            TRIGGER: <b id="gateTriggerDisplay">--.--</b>
+          </div>
+          <div class="gateChip" style="background: rgba(255,255,255,.10);">
+            LIMIT: <b id="gateLimitDisplay">10m</b>
+          </div>
+          <div class="gateChip" style="background: rgba(255,255,255,.10);">
+            QUALIFY: <b id="gateQualifyDisplay">3m</b>
           </div>
         </div>
 
-        <div class="homeLevelRow">
-          <div class="homeLevelLabel">Daily Progress</div>
-          <div class="homeLevelValue" id="homeLevelValue">0 / 100</div>
+        <div class="gateBigTime" id="gateCoverTime">--:--</div>
+        <div class="gateSubHint" id="gateCoverHint">
+          ถ้าถึง Trigger แล้ว: กด “เริ่ม Morning Gate” → จะเริ่มนับถอยหลังทันที
         </div>
 
-        <div class="homeLevelBar">
-          <div class="homeLevelFill" id="homeLevelFill"></div>
+        <div class="gateActions">
+          <button class="gateBtnPrimary" type="button" id="gateCoverStartBtn">เริ่ม Morning Gate</button>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-
-
-    <!-- MORNING GATE COVER -->
-    <div class="gateCover" id="gateCover" aria-hidden="true">
-      <div class="gatePanel" role="dialog" aria-modal="true">
-        <div class="gatePanelHead">
-          <div>
-            <p class="gateTitle">🟥 Morning Gate</p>
-            <p class="gateKicker" id="gateCoverKicker">
-              โหมดนี้จะเริ่มทำงานตามเวลา “Trigger Time” ของวันนี้<br>
-              เป้าคือเริ่มเควสแรกให้ทัน แล้ววิ่งครบ 3 นาทีเพื่อ PASS
-            </p>
-          </div>
-          <div class="gateChip" id="gateCoverStatusChip">STATUS: READY</div>
-        </div>
-
-        <div class="gatePanelBody">
-          <div class="gateInlineEdit">
-            <div class="gateChip" style="background: rgba(255,255,255,.10);">
-              TRIGGER: <b id="gateTriggerDisplay">--.--</b>
-            </div>
-            <div class="gateChip" style="background: rgba(255,255,255,.10);">
-              LIMIT: <b id="gateLimitDisplay">10m</b>
-            </div>
-            <div class="gateChip" style="background: rgba(255,255,255,.10);">
-              QUALIFY: <b id="gateQualifyDisplay">3m</b>
-            </div>
-          </div>
-
-          <div class="gateBigTime" id="gateCoverTime">--:--</div>
-          <div class="gateSubHint" id="gateCoverHint">
-            ถ้าถึง Trigger แล้ว: กด “เริ่ม Morning Gate” → จะเริ่มนับถอยหลังทันที
-          </div>
-
-          <div class="gateActions">
-            <button class="gateBtnPrimary" type="button" id="gateCoverStartBtn">เริ่ม Morning Gate</button>
-          </div>
-        </div>
+  <!-- MORNING GATE TOP BAR -->
+  <div class="gateTopBar" id="gateTopBar">
+    <div class="gateTopInner">
+      <div class="gateTopLeft">
+        <div class="gateTopTitle" id="gateTopTitle">Morning Gate • Running</div>
+        <div class="gateTopSub" id="gateTopSub">เริ่มเควสแรกให้ทัน</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="gateTopTime" id="gateTopTime">00:00</div>
+        <button class="gateTopBtn secondaryDark" type="button" id="gateTopOpenBtn">Gate</button>
       </div>
     </div>
+  </div>
 
-    <!-- MORNING GATE TOP BAR -->
-    <div class="gateTopBar" id="gateTopBar">
-      <div class="gateTopInner">
-        <div class="gateTopLeft">
-          <div class="gateTopTitle" id="gateTopTitle">Morning Gate • Running</div>
-          <div class="gateTopSub" id="gateTopSub">เริ่มเควสแรกให้ทัน</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="gateTopTime" id="gateTopTime">00:00</div>
-          <button class="gateTopBtn secondaryDark" type="button" id="gateTopOpenBtn">Gate</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="app page" id="appPage">
-  <div id="appScroll">
+  <!-- APP PAGE -->
+  <div class="app page" id="appPage">
+    <div id="appScroll">
       <div class="container">
 
-       <div class="topbar">
-  <div class="topbarShell">
-    <div class="topMain clean">
-      <div class="brandBlock">
-        <div class="brandLeft">
-          <div class="appIcon">
-  <img src="logo.png" alt="QPS logo">
-</div>
+        <div class="topbar">
+          <div class="topbarShell">
+            <div class="topMain clean">
+              <div class="brandBlock">
+                <div class="brandLeft">
+                  <div class="appIcon">
+                    <img src="logo.png" alt="QPS logo">
+                  </div>
 
-          <div class="brandMeta">
-            <div class="brandTitleRow">
-              <h1>SakuraQ</h1>
-              <span class="versionBadge">v0.7.8</span>
+                  <div class="brandMeta">
+                    <div class="brandTitleRow">
+                      <h1>SakuraQ</h1>
+                      <span class="versionBadge">v0.7.8</span>
+                    </div>
+                    <div class="sub" id="todayText">Today: ----</div>
+                  </div>
+                </div>
+
+                <div class="topTools">
+                  <div class="miniStreak" id="streakPill">
+                    <span class="fire">🔥</span>
+                    <span class="streakNum">0</span>
+                  </div>
+                  <button class="iconGhostBtn" type="button" id="topMenuBtn">⋯</button>
+                </div>
+              </div>
             </div>
-            <div class="sub" id="todayText">Today: ----</div>
+
+            <div class="topNavWrap">
+              <div class="topNav">
+                <button class="navBtn active" type="button" onclick="scrollToId('sec-timer')">Timer</button>
+                <button class="navBtn" type="button" onclick="scrollToId('sec-today')">Today</button>
+                <button class="navBtn" type="button" onclick="scrollToId('sec-report')">Report</button>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="topTools">
-
-  <div class="miniStreak" id="streakPill">
-  <span class="fire">🔥</span>
-  <span class="streakNum">0</span>
-</div>
-  <button class="iconGhostBtn" type="button" id="topMenuBtn">⋯</button>
-</div>
-      </div>
-    </div>
-
-    <div class="topNavWrap">
-      <div class="topNav">
-        <button class="navBtn active" type="button" onclick="scrollToId('sec-timer')">Timer</button>
-        <button class="navBtn" type="button" onclick="scrollToId('sec-today')">Today</button>
-        <button class="navBtn" type="button" onclick="scrollToId('sec-report')">Report</button>
-      </div>
-    </div>
-    <!-- TOPBAR MENU -->
-<div class="topMenuBackdrop" id="topMenuBackdrop"></div>
-
-<div class="topMenu" id="topMenu" aria-hidden="true">
-  <button class="topMenuItem" type="button" id="topMenuGateBtn">
-    <span class="topMenuItemLabel">
-      <span class="topMenuItemTitle">Morning Gate</span>
-      <span class="topMenuItemSub">ตั้งค่า / เปิด / ปิด</span>
-    </span>
-    <span class="topMenuItemRight" id="topMenuGateState">OFF</span>
-  </button>
-
-  <button class="topMenuItem" type="button" id="topMenuGuideBtn">
-    <span class="topMenuItemLabel">
-      <span class="topMenuItemTitle">Guide</span>
-      <span class="topMenuItemSub">วิธีใช้งานแอป</span>
-    </span>
-  </button>
-</div>
-  </div>
-</div>
 
         <!-- TIMER -->
         <div class="section" id="sec-timer">
@@ -2766,51 +2747,46 @@ linear-gradient(
 
           <div class="card">
 
-            <!-- RANDOM QUEST (stable) -->
-          <!-- DICE FAB (Random Quest) -->
-  <div class="diceFab" id="diceFab" style="display:none;">
-    <div class="diceCd" id="diceCd">Cooldown: <b>00:00</b></div>
-  <button class="diceBtn dicePulse" id="diceBtn" type="button" aria-label="Random Quest Dice">
-    <span class="diceIcon" aria-hidden="true"></span>
-  </button></div>
+            <div class="diceFab" id="diceFab" style="display:none;">
+              <div class="diceCd" id="diceCd">Cooldown: <b>00:00</b></div>
+              <button class="diceBtn dicePulse" id="diceBtn" type="button" aria-label="Random Quest Dice">
+                <span class="diceIcon" aria-hidden="true"></span>
+              </button>
+            </div>
 
-  <!-- Random Quest Modal -->
-  <div class="rqOverlay" id="rqOverlay" aria-hidden="true">
-    <div class="rqCard" role="dialog" aria-modal="true">
-      <div class="rqHead2">
-        <div>
-          <p class="rqTitle2">🎲 Random Quest</p>
-          <p class="rqSub2" id="rqModalSub">เลือกพลังงาน แล้วระบบจะสุ่มเควสให้</p>
-        </div>
-        <button class="rqClose" id="rqClose" type="button">✕</button>
-      </div>
+            <div class="rqOverlay" id="rqOverlay" aria-hidden="true">
+              <div class="rqCard" role="dialog" aria-modal="true">
+                <div class="rqHead2">
+                  <div>
+                    <p class="rqTitle2">🎲 Random Quest</p>
+                    <p class="rqSub2" id="rqModalSub">เลือกพลังงาน แล้วระบบจะสุ่มเควสให้</p>
+                  </div>
+                  <button class="rqClose" id="rqClose" type="button">✕</button>
+                </div>
 
-      <div class="rqBody2">
-        <div class="rqPickGrid">
-          <button class="secondary" id="rqPickLow" type="button">LOW</button>
-          <button class="secondary" id="rqPickMid" type="button">MID</button>
-          <button class="secondary" id="rqPickHigh" type="button">HIGH</button>
-        </div>
+                <div class="rqBody2">
+                  <div class="rqPickGrid">
+                    <button class="secondary" id="rqPickLow" type="button">LOW</button>
+                    <button class="secondary" id="rqPickMid" type="button">MID</button>
+                    <button class="secondary" id="rqPickHigh" type="button">HIGH</button>
+                  </div>
 
-        <div class="rqResult2" id="rqResult2">
-          <div class="rqBigName" id="rqBigName">—</div>
-          <div class="rqMeta2" id="rqMeta2">—</div>
+                  <div class="rqResult2" id="rqResult2">
+                    <div class="rqBigName" id="rqBigName">—</div>
+                    <div class="rqMeta2" id="rqMeta2">—</div>
 
-          <div class="rqActions2">
-            <button id="rqStartNow2" type="button">Start Now</button>
-            <button id="rqClear2" class="secondary" type="button">Clear</button>
-          </div>
+                    <div class="rqActions2">
+                      <button id="rqStartNow2" type="button">Start Now</button>
+                      <button id="rqClear2" class="secondary" type="button">Clear</button>
+                    </div>
 
-          <div class="hint" style="margin-top:10px;">
-            cooldown 30 นาทีหลังสุ่ม • กันสุ่มซ้ำในวันเดียว • Start Now = auto-fill + cutting time
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>  
-  
-
-                        
+                    <div class="hint" style="margin-top:10px;">
+                      cooldown 30 นาทีหลังสุ่ม • กันสุ่มซ้ำในวันเดียว • Start Now = auto-fill + cutting time
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div class="row two">
               <div>
@@ -2823,6 +2799,7 @@ linear-gradient(
                 </select>
                 <div class="hint">หมวดเป็นแค่ป้าย (tag)</div>
               </div>
+
               <div>
                 <label for="questName">
                   Quest Name (ห้ามซ้ำในวันเดียว)
@@ -2833,13 +2810,7 @@ linear-gradient(
               </div>
             </div>
 
-       
-
-              <div class="divider"></div>
-
-              
-
-          
+            <div class="divider"></div>
 
             <div class="cutWrap" id="cutWrap">
               <div class="cutHeader">
@@ -2854,8 +2825,7 @@ linear-gradient(
                 <div class="row two">
                   <div>
                     <label for="cutMinutes">Cutting Time (minutes)</label>
-                    <input id="cutMinutes" type="number" inputmode="numeric" min="1" max="360" step="1"
-                          placeholder="เช่น 60 (ไม่ใส่ = ไม่ตัดเวลา)" />
+                    <input id="cutMinutes" type="number" inputmode="numeric" min="1" max="360" step="1" placeholder="เช่น 60 (ไม่ใส่ = ไม่ตัดเวลา)" />
                     <div class="smallHint">ครบเวลาแล้วระบบจะ Stop อัตโนมัติ → ไปหน้า Report</div>
                   </div>
 
@@ -2888,8 +2858,6 @@ linear-gradient(
               Base = minutes × 0.4 • Bonus = 0/+2/+4/+6 (เฉพาะเวลา ≥ 30 นาที) •
               <b>Cap:</b> Base cap ต่อ “Quest Name” ต่อวัน = 60 นาที (ชื่อซ้ำไม่ได้)
             </div>
-
-          
           </div>
         </div>
 
@@ -2916,12 +2884,10 @@ linear-gradient(
 
             <div class="row two">
               <div>
-                <button id="exportBtn" class="secondary" type="button"
-                  style="width:100%;padding:10px 12px;font-size:13px;">Export</button>
+                <button id="exportBtn" class="secondary" type="button" style="width:100%;padding:10px 12px;font-size:13px;">Export</button>
               </div>
               <div>
-                <button id="importBtn" class="secondary" type="button"
-                  style="width:100%;padding:10px 12px;font-size:13px;">Import</button>
+                <button id="importBtn" class="secondary" type="button" style="width:100%;padding:10px 12px;font-size:13px;">Import</button>
                 <input id="importFile" type="file" accept="application/json" style="display:none;">
               </div>
             </div>
@@ -2962,10 +2928,7 @@ linear-gradient(
             <div style="margin-top:10px;">
               <label for="notes">Notes</label>
               <textarea id="notes" placeholder="ทำอะไร/ได้ insight อะไร/เปลี่ยนพฤติกรรมไหม"></textarea>
-
-              <div class="draftHint" id="draftHint" style="display:none;">
-  Draft saved automatically
-</div>
+              <div class="draftHint" id="draftHint" style="display:none;">Draft saved automatically</div>
             </div>
 
             <div class="btns" style="margin-top:12px;">
@@ -2992,14 +2955,14 @@ linear-gradient(
       </div>
       <div class="tipArrow" id="tipArrow"></div>
     </div>
+    </div>
 
     <!-- HISTORY OVERLAY -->
     <div class="overlay" id="overlay">
       <div class="sheet">
         <div class="sheetHead">
           <div class="badge">History • <b id="histTitle">----</b></div>
-          <button id="closeOverlayBtn" class="secondary" type="button"
-            style="padding:10px 12px;font-size:13px;">Close</button>
+          <button id="closeOverlayBtn" class="secondary" type="button" style="padding:10px 12px;font-size:13px;">Close</button>
         </div>
 
         <div class="sheetGrid">
@@ -3041,110 +3004,115 @@ linear-gradient(
       </div>
     </div>
 
-    <!-- =========================
-  MORNING GATE PAGE (Overlay)
-  Required IDs for new JS:
-  gatePage, gatePageCloseBtn, gatePageEnableBtn, gatePageTriggerInput, gatePageHint
-========================= -->
-<div id="gatePage" class="overlay gatePage" aria-hidden="true">
-  <div class="gateModal" role="dialog" aria-modal="true" aria-labelledby="gatePageTitle">
-    
-    <!-- Header -->
-    <div class="gateHeader">
-      <div class="gateHeaderLeft">
-        <div id="gatePageTitle" class="gateTitle">Morning Gate</div>
-        <div class="gateSub">ตั้งค่า + เปิด/ปิด Gate (Trigger ล็อก 7 วัน)</div>
-      </div>
-    </div>
-
-    <!-- Body -->
-    <div class="gateBody">
-      
-      <!-- Row: ON/OFF -->
-      <div class="gateRow gateRowToggle">
-        <div class="gateRowText">
-          <div class="gateRowTitle">Status</div>
-          <div class="gateRowDesc">เปิด/ปิด Morning Gate (เปิดได้เมื่อมี Trigger)</div>
+    <!-- GATE PAGE -->
+    <div id="gatePage" class="overlay gatePage" aria-hidden="true">
+      <div class="gateModal" role="dialog" aria-modal="true" aria-labelledby="gatePageTitle">
+        <div class="gateHeader">
+          <div class="gateHeaderLeft">
+            <div id="gatePageTitle" class="gateTitle">Morning Gate</div>
+            <div class="gateSub">ตั้งค่า + เปิด/ปิด Gate (Trigger ล็อก 7 วัน)</div>
+          </div>
         </div>
 
-        <!-- JS จะเปลี่ยนเป็น ON/OFF และใส่ class "on" ให้เอง -->
-        <button id="gatePageEnableBtn" class="pillSwitch" type="button">OFF</button>
-      </div>
+        <div class="gateBody">
+          <div class="gateRow gateRowToggle">
+            <div class="gateRowText">
+              <div class="gateRowTitle">Status</div>
+              <div class="gateRowDesc">เปิด/ปิด Morning Gate (เปิดได้เมื่อมี Trigger)</div>
+            </div>
+            <button id="gatePageEnableBtn" class="pillSwitch" type="button">OFF</button>
+          </div>
 
-      <!-- Row: Trigger Time -->
-      <div class="gateRow gateRowTrigger">
-        <div class="gateRowText">
-          <div class="gateRowTitle">Trigger Time</div>
-          <div class="gateRowDesc">เวลาเริ่มบังคับ Gate (รูปแบบ HH:MM)</div>
+          <div class="gateRow gateRowTrigger">
+            <div class="gateRowText">
+              <div class="gateRowTitle">Trigger Time</div>
+              <div class="gateRowDesc">เวลาเริ่มบังคับ Gate (รูปแบบ HH:MM)</div>
+            </div>
+            <input id="gatePageTriggerInput" class="timeInput" type="time" step="60" value="" />
+          </div>
+
+          <div id="gatePageHint" class="gateHint">—</div>
+
+          <div class="gateRules">
+            <div class="ruleItem"><b>Limit:</b> 10 นาที</div>
+            <div class="ruleItem"><b>Qualify:</b> 3 นาที (เควสแรก)</div>
+            <div class="ruleItem"><b>Lock:</b> 7 วันหลังตั้ง Trigger</div>
+            <div class="ruleItem"><b>Bonus:</b> +6 (ถ้า PASS ภายใน deadline และไม่ Unlock)</div>
+          </div>
         </div>
 
-        <input id="gatePageTriggerInput" class="timeInput" type="time" step="60" value="" />
-      </div>
-
-      <!-- Hint / lock / effective info (JS จะเขียนให้) -->
-      <div id="gatePageHint" class="gateHint">
-        —
-      </div>
-
-      <!-- Rules (fixed text) -->
-      <div class="gateRules">
-        <div class="ruleItem"><b>Limit:</b> 10 นาที</div>
-        <div class="ruleItem"><b>Qualify:</b> 3 นาที (เควสแรก)</div>
-        <div class="ruleItem"><b>Lock:</b> 7 วันหลังตั้ง Trigger</div>
-        <div class="ruleItem"><b>Bonus:</b> +6 (ถ้า PASS ภายใน deadline และไม่ Unlock)</div>
-      </div>
-
-    </div>
-
-    <!-- Footer -->
-    <div class="gateFooter">
-      <button id="gatePageCloseBtn" class="btn" type="button">Close</button>
-    </div>
-
-  </div>
-</div>
-</div>
-<!-- Quest Category Bar -->
-<div class="questBar" id="questBar">
-  <button class="questTab active" type="button" data-category="Learning">Learn</button>
-  <button class="questTab" type="button" data-category="Work/Project">Work</button>
-  <button class="questTab" type="button" data-category="Physical">Physical</button>
-  <button class="questTab" type="button" data-category="Connection">Connect</button>
-</div>
-<!-- Bottom Navigation -->
-<nav class="bottomNav" aria-label="Main Navigation">
-  <button class="bottomNavBtn active" type="button" data-page="homeScene">
-    <span>🏠</span>
-    <span>Home</span>
-  </button>
-  <button class="bottomNavBtn" type="button" data-page="appPage" data-target="timer">
-    <span>⏱️</span>
-    <span>Timer</span>
-  </button>
-  <button class="bottomNavBtn" type="button" data-page="appPage" data-target="today">
-    <span>📋</span>
-    <span>Today</span>
-  </button>
-  <button class="bottomNavBtn" type="button" data-page="appPage" data-target="menu">
-    <span>☰</span>
-    <span>Menu</span>
-  </button>
-</nav> 
-
-<!-- Sakura Action Lock Bar -->
-<div id="actionLockBar" class="actionLockBar" aria-hidden="true">
-  <div class="actionLockInner">
-    <div class="actionLockMascot">
-      <img src="mascord.png" alt="SakuraQ mascot warning">
-    </div>
-
-    <div class="actionLockBubble">
-      <div id="actionLockText" class="actionLockText">
-       อ้ะ! ตอนนี้กำลังทำเควสอยู่ ยังใช้ฟังก์ชันนี้ไม่ได้นะ
+        <div class="gateFooter">
+          <button id="gatePageCloseBtn" class="btn" type="button">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- TOP MENU: อยู่นอก appPage -->
+  <div class="topMenuBackdrop" id="topMenuBackdrop"></div>
+
+  <div class="topMenu" id="topMenu" aria-hidden="true">
+    <button class="topMenuItem" type="button" id="topMenuGateBtn">
+      <span class="topMenuItemLabel">
+        <span class="topMenuItemTitle">Morning Gate</span>
+        <span class="topMenuItemSub">ตั้งค่า / เปิด / ปิด</span>
+      </span>
+      <span class="topMenuItemRight" id="topMenuGateState">OFF</span>
+    </button>
+
+    <button class="topMenuItem" type="button" id="topMenuGuideBtn">
+      <span class="topMenuItemLabel">
+        <span class="topMenuItemTitle">Guide</span>
+        <span class="topMenuItemSub">วิธีใช้งานแอป</span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Quest Category Bar -->
+  <div class="questBar" id="questBar">
+    <button class="questTab active" type="button" data-category="Learning">Learn</button>
+    <button class="questTab" type="button" data-category="Work/Project">Work</button>
+    <button class="questTab" type="button" data-category="Physical">Physical</button>
+    <button class="questTab" type="button" data-category="Connection">Connect</button>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottomNav" aria-label="Main Navigation">
+    <button class="bottomNavBtn active" type="button" data-page="homeScene">
+      <span>🏠</span>
+      <span>Home</span>
+    </button>
+    <button class="bottomNavBtn" type="button" data-page="appPage" data-target="timer">
+      <span>⏱️</span>
+      <span>Timer</span>
+    </button>
+    <button class="bottomNavBtn" type="button" data-page="appPage" data-target="today">
+      <span>📋</span>
+      <span>Today</span>
+    </button>
+    <button class="bottomNavBtn" type="button" data-page="appPage" data-target="menu">
+      <span>☰</span>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <!-- Sakura Action Lock Bar -->
+  <div id="actionLockBar" class="actionLockBar" aria-hidden="true">
+    <div class="actionLockInner">
+      <div class="actionLockMascot">
+        <img src="mascord.png" alt="SakuraQ mascot warning">
+      </div>
+
+      <div class="actionLockBubble">
+        <div id="actionLockText" class="actionLockText">
+          อ้ะ! ตอนนี้กำลังทำเควสอยู่ ยังใช้ฟังก์ชันนี้ไม่ได้นะ
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
   <script>
 /* =========================================================
   QPS Timer v0.6.x — Full JS (Safe/Null-Guard) + Gate Page v2
@@ -4173,9 +4141,17 @@ const KEY_DICE_POS = "qps_dice_pos_v1";
   }
 function openTopMenu(){
   if(!el.topMenu || !el.topMenuBackdrop) return;
+
   el.topMenu.classList.add("show");
   el.topMenuBackdrop.classList.add("show");
   el.topMenu.setAttribute("aria-hidden", "false");
+
+  console.log("[MENU OPEN]", {
+    showClass: el.topMenu.classList.contains("show"),
+    display: getComputedStyle(el.topMenu).display,
+    opacity: getComputedStyle(el.topMenu).opacity,
+    rect: el.topMenu.getBoundingClientRect()
+  });
 }
 
 function closeTopMenu(){
@@ -6194,17 +6170,15 @@ function switchPage(pageId){
     page.classList.remove("page-active");
   });
 
-  const target = document.getElementById(pageId);
-  if(target) target.classList.add("page-active");
+  const targetPage = document.getElementById(pageId);
+  if(targetPage) targetPage.classList.add("page-active");
 
-  document.querySelectorAll(".bottomNavBtn").forEach(btn=>{
-    btn.classList.toggle("active", btn.dataset.page === pageId);
-  });
+
 
   const questBar = document.getElementById("questBar");
-if(questBar){
-  questBar.style.display = (pageId === "homeScene") ? "" : "none";
-}
+  if(questBar){
+    questBar.style.display = (pageId === "homeScene") ? "flex" : "none";
+  }
 
   if(pageId === "homeScene"){
     requestAnimationFrame(() => {
@@ -6439,16 +6413,19 @@ document.querySelectorAll(".bottomNavBtn").forEach(btn=>{
     const pageId = btn.dataset.page;
     const target = btn.dataset.target;
 
+    // เมนู = เปิด top menu อย่างเดียว ห้าม switch page
+    if(target === "menu"){
+      openTopMenu();
+      return;
+    }
 
-
+    // ปุ่มอื่นค่อยปิดเมนูแล้วสลับหน้า
+    closeTopMenu();
     switchPage(pageId);
 
     if(pageId === "appPage"){
       if(target === "timer") scrollToId("sec-timer");
       if(target === "today") scrollToId("sec-today");
-      if(target === "menu"){
-        if(typeof openTopMenu === "function") openTopMenu();
-      }
     }
   });
 });
